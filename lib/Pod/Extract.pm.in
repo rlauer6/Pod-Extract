@@ -1,5 +1,3 @@
-#!/usr/bin/env perl
-
 package Pod::Extract;
 
 use strict;
@@ -49,19 +47,19 @@ START_OF_POD
 
   my $code_out = IO::Scalar->new( \$code );
 
-  my $in_pod = $FALSE;
+  my $in_pod = 0;
 
   while ( my $line = <$fh> ) {
 
     if ( $line =~ $POD_START ) {
-      $in_pod = $TRUE;
-      next;
+      $in_pod++;
+      next if $in_pod == 1 || $line !~ /begin/xsm;
     }
 
+    # =begin/=end blocks inside of =pod/=cut are pod
     if ( $line =~ $POD_END ) {
-      $in_pod = $FALSE;
-
-      next;
+      $in_pod--;
+      next if !$in_pod || $line !~ /end/xsm;
     }
 
     if ( !$in_pod ) {
@@ -282,10 +280,22 @@ you want real pod parsing, use L<Pod::Simple>>.
  check
 
 =head2 Notes
- 
- If --infile is not specified, script reads from stdin
- If --outfile is not specified, code is written to stdout
- If --podfile is not specified, pod is written to stderr
+
+=over 5
+
+=item If --infile is not specified, script reads from stdin
+
+=item If --outfile is not specified, code is written to stdout
+
+=item If --podfile is not specified, pod is written to stderr
+
+=item begin/end blocks
+
+When a begin/end block is encountered inside a C<=pod/=cut> block the
+directives are considered pod. When they are outside of a C<=pod/=cut>
+block the directives are not included. This may be a bug or a feature.
+
+=back
 
 =head1 METHODS AND SUBROUTINES
 

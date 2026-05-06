@@ -1,3 +1,23 @@
+Wed May  6 09:31:00 2026  Rob Lauer  <rclauer@gmail.com>
+
+	[1.0.2]:
+	* VERSION: bump
+	* .includes/git.mk: renamed, updated
+	* .includes/help.mk: renamed, updated
+	* .includes/release-notes.mk: renamed
+	* .includes/version.mk: renamed
+	* .includes/perl.mk: new
+	* .includes/update.mk: new
+	* .includes/upgrade.mk: new
+	* Makefile: updated
+	* .gitignore: updated
+	* requires: CLI::Simple 2.0.1
+	* cpanfile: new
+	* buildspec.yml: '_' -> '-'
+	* lib/Pod/Extract.pm.in
+	(extract_pod)
+	- consider =begin/=end inside pod as pod
+
 Wed Apr 15 05:51:32 2026  Rob Lauer  <rclauer@gmail.com>
 
 	[1.0.1]:

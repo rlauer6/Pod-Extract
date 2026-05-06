@@ -65,9 +65,14 @@ you want real pod parsing, use [Pod::Simple](https://metacpan.org/pod/Pod%3A%3AS
 
 ## Notes
 
-    If --infile is not specified, script reads from stdin
-    If --outfile is not specified, code is written to stdout
-    If --podfile is not specified, pod is written to stderr
+- If --infile is not specified, script reads from stdin
+- If --outfile is not specified, code is written to stdout
+- If --podfile is not specified, pod is written to stderr
+- begin/end blocks
+
+    When a begin/end block is encountered inside a `=pod/=cut` block the
+    directives are considered pod. When they are outside of a `=pod/=cut`
+    block the directives are not included. This may be a bug or a feature.
 
 # METHODS AND SUBROUTINES
 
